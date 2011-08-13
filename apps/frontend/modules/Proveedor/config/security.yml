@@ -1,0 +1,20 @@
+## YAML Template.
+---
+
+default:
+  is_secure: false
+  
+new:
+  is_secure: on
+  credentials: [[Administrador]]
+  
+edit:
+  is_secure: on
+  credentials: [[Administrador]]
+  
+consulta:
+  is_secure: on
+  credentials: [[Administrador, Bodeguero, Contador]]
+  
+deleteProveedor:
+  credentials: [[Administrador]]

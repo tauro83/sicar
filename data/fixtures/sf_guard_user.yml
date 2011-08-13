@@ -1,0 +1,42 @@
+## YAML Template.
+---
+sfGuardUser:
+  sfGuardUser1:
+    id: 1
+    email_address: 'super@sicar.com'
+    username: 'superadmin'
+    algorithm: 'sha1'
+    salt: 'e4ac724ea639dbbd6d2d160682e9355e'
+    password: 'super'
+    is_active: 1
+    is_super_admin: 1
+    
+  sfGuardUser2:
+    id: 2
+    email_address: 'con@sicar.com'
+    username: 'contador'
+    algorithm: 'sha1'
+    salt: '37cbb7f000de4dbce87a17b6d6659514'
+    password: 'con'
+    is_active: 1
+    is_super_admin: 0
+    
+  sfGuardUser3:
+    id: 3
+    email_address: 'bod@sicar.com'
+    username: 'bodeguero'
+    algorithm: 'sha1'
+    salt: '49de86b1a61e6cdd0246523c8018987d'
+    password: 'bod'
+    is_active: 1
+    is_super_admin: 0
+    
+  sfGuardUser4:
+    id: 4
+    email_address: 'adm@sicar.com'
+    username: 'administrador'
+    algorithm: 'sha1'
+    salt: '74d8b7871446e535030ed9fd8a8b2e4e'
+    password: 'adm'
+    is_active: 1
+    is_super_admin: 0

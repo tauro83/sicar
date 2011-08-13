@@ -1,0 +1,17 @@
+## YAML Template.
+---
+
+default:
+  is_secure: false
+  
+new:
+  is_secure: on
+  credentials: [[Administrador, Bodeguero]]
+  
+consultaGenerica:
+  credentials: [[Administrador, Bodeguero, Contador]]
+
+codigosLibres:
+  credentials: [[Administrador, Bodeguero]]
+  
+## falta agregar kardex y devolucion de producto

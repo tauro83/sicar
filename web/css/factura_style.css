@@ -1,0 +1,152 @@
+#info_empresa{
+    width:100%;
+    margin-left:0%;
+    float:left;
+    border:  solid 1px #92BDD6;
+    text-align: left;
+    padding: 2%;
+}
+#info_tipo_doc{
+    width:50%;
+    text-align: center;
+    margin-left: 48%;
+    margin-top: -15%;
+    margin-right: 2%;
+}
+
+.tipo_doc_title{
+    font-family: "Trebuchet MS";
+    color:#009AD9;
+    font-size: 15pt;
+    font-weight: bold;
+    text-align:left;
+}
+
+
+#titulo-factura{
+    font-family: "Trebuchet MS";
+    font-size:20px;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: -1%;
+    text-align: left;
+    margin-left: 4%;
+}
+
+#subtitulo-factura{
+    text-align: left;
+    position:relative;
+    top:-30px;
+    font-size:12px;
+    margin-left: 8%;
+}
+
+#subtitulo2-factura{
+    text-align: left;
+    position:relative;
+    top:-40px;
+    margin-left: 8%;
+    font-size:12px;
+}
+
+#table_factura_show{
+    font-family: "Trebuchet MS";
+    width:100%;
+    border-collapse: collapse;
+    margin-top: 2%;
+    font-size: 11px;
+}
+
+#cuerpo_factura_show{
+    width:100%;
+ }
+
+ #cuerpo_factura_show td{
+    border: 0.2px solid;
+    text-align: center;
+ }
+
+
+ .table_factura_show{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 5%;
+    border-collapse:collapse;
+
+}
+
+
+.table_factura_show td{
+     font-family: "Trebuchet MS";
+     font-size:11px;
+     text-align: left;
+     border: solid 1px #92BDD6;
+     width:8%;
+     padding-left:2%;
+     padding-top: 0.5%;
+     padding-bottom: 0.5%;
+}
+
+ .table_factura_cliente{
+    margin-top: 4%;
+    border-collapse:collapse;
+    width:100%;
+}
+
+.table_factura_cliente td{
+     border: solid 1px #92BDD6;
+     width:10%;
+     font-family: "Trebuchet MS";
+     font-size: 11px;
+     padding-left: 1%;
+     padding-top: 0.2%;
+     padding-bottom: 0.2%;
+}
+
+.campo_largo{
+    width: 98%;
+}
+
+.campo_medio{
+    width: 80%;
+    margin-right: 6%;
+    margin-bottom: 0.5%;
+    margin-top: 0.5%;
+}
+
+ .table_factura_show_totales{
+     border-collapse:collapse;
+     float:right;
+     margin-top: -11%;
+     margin-left: 60%;
+     margin-right: 1%;
+}
+
+.table_factura_show_totales th{
+    font-family: "Trebuchet MS";
+    font-size:11px;
+    width: 10%;
+}
+.table_factura_show_totales td{
+     font-family: "Trebuchet MS";
+     font-size:11px;
+     text-align: left;
+     border: solid 1px #92BDD6;
+     width:8%;
+     padding-left:2%;
+     padding-top: 0.5%;
+     padding-bottom: 0.5%;
+}
+#fvendedor{
+    padding-left: 5%;
+    padding-top: 1%;
+     padding-bottom: 1%;
+    margin-top: 5%;
+    font-size: 11px;
+    border: solid 1px #92BDD6;
+}
+#fcliente{
+    margin-left: 35%;
+    margin-top: -11%;
+    font-size: 11px;
+}

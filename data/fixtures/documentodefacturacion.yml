@@ -1,0 +1,14 @@
+## YAML Template.
+---
+DocumentoDeFacturacion:
+  documentoDeFacturacion1:
+    doc_id: 1
+    doc_codigo: '2222222222'
+    doc_fecha_emision: '2011-07-01'
+    doc_cliente_id: 1
+    doc_responsable: 'Rolando Sornoza'
+    doc_sub_total: 16.31
+    doc_total_documento: 1.96
+    doc_iva: 18.27
+    doc_tipo: 1
+    doc_cliente_id: 1

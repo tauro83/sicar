@@ -1,0 +1,22 @@
+## YAML Template.
+---
+
+default:
+  is_secure: false
+  
+new:
+  is_secure: on
+  credentials: [[Administrador, Contador]]
+  
+consultaGenerica:
+  is_secure: on
+  credentials: [[Administrador, Contador, Bodeguero]]
+  
+edit:
+  is_secure: on
+  credentials: [[Administrador, Contador]]
+  
+deleteCliente:
+  credentials: [[Administrador, Contador]]
+  
+## falta importar datos, exportar datos

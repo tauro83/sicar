@@ -1,0 +1,93 @@
+Cliente:
+  actAs:
+    Timestampable:
+  columns:
+    cli_id: { type: integer(6), autoincrement: true, primary: true, notnull:  true, unique: true }
+    cli_identificacion: { type: string(13), notnull:  true, unique: true }
+    cli_nombre: { type: string(255) }
+    cli_apellido: { type: string(255) }
+    cli_direccion: { type: string(255) }
+    cli_celular: { type: string(9) }
+    cli_telefono: { type: string(11) }
+    cli_correo: { type: string(255) }
+    cli_estado: {type: integer(1) }
+
+
+DocumentoDeFacturacion:
+  actAs:
+    Timestampable:
+  columns:
+    doc_id: { type: integer(6), autoincrement: true, primary: true, notnull:  true, unique: true }
+    doc_codigo: { type: string(10), unique: true }
+    doc_fecha_emision: { type: timestamp }
+    doc_cliente_id: { type: integer(6) }
+    doc_proveedor_id: { type: integer(6) }
+    doc_responsable: { type: string(255) }
+    doc_sub_total: { type: decimal(6), scale: 2 }
+    doc_total_documento: { type: decimal(6), scale: 2 }
+    doc_iva: { type: decimal(6), scale: 2 }
+    doc_tipo: {type: integer(1) }
+  relations:
+    Cliente: { local: doc_cliente_id, foreign: cli_id, foreignAlias: DocumentoCliente, foreignType: one }
+    Proveedor: { local: doc_proveedor_id, foreign: prv_id, foreignAlias: DocumentoProveedor, foreignType: one }
+
+DetalleDocumentoDeFacturacion:
+  actAs:
+    Timestampable:
+  columns:
+    det_id: { type: integer(6), autoincrement: true, primary: true, notnull:  true, unique: true }
+    det_codigo: { type: string(10) }
+    det_cantidad: { type: integer(4) }
+    det_descripcion: { type: string(255) }
+    det_valor_unitario: { type: decimal(6), scale: 2 }
+    det_valor_total: { type: decimal(6), scale: 2 }
+    det_documento_id: { type: integer(6) }
+    det_producto_id: { type: integer(6) }
+
+  relations:
+    DocumentoDeFacturacion: { local: det_documento_id, foreign: doc_id, foreignAlias: DetalleDocumento, foreignType: many }
+    Producto: { local: det_producto_id, foreign: pro_id, foreignAlias: DetalleProducto, foreignType: one }
+
+Producto:
+  actAs:
+    Timestampable:
+  columns:
+    pro_id: { type: integer(6), autoincrement: true, primary: true, notnull:  true, unique: true }
+    pro_codigo: { type: string(10), notnull:  true, unique:true }
+    pro_nombre: { type: string(255) }
+    pro_descripcion: { type: string(255) }
+    pro_marca: { type: string(100) }
+    pro_categoria: { type: string(100) }
+    pro_stock: { type: integer(6) }
+    pro_estado: {type: integer(1) }
+    pro_ultima_venta: {type: timestamp}
+    pro_ultima_compra: {type: timestamp}
+    pro_precio_unitario: { type: decimal(6), scale: 2 }
+    pro_precio_nota_venta: { type: decimal(6), scale: 2 }
+    pro_precio_factura: { type: decimal(6), scale: 2 }
+    pro_estado: { type: integer(1)}
+    pro_bodega: { type: integer(1) }
+    pro_origen: { type: string(4) }
+    pro_ultimo_proveedor_id: {type: integer(6)}
+  relations:
+     Proveedor: { local: pro_ultimo_proveedor_id, foreign: prv_id, foreignAlias: ProductoProveedor, foreignType: many }
+
+
+Proveedor:
+  actAs:
+    Timestampable:
+  columns:
+    prv_id: { type: integer(6), autoincrement: true, primary: true, notnull:  true, unique: true }
+    prv_ruc: { type: string(13) }
+    prv_nombre: { type: string(255) }
+    prv_direccion: { type: string(255) }
+    prv_telefono: { type: string(11) }
+    prv_correo: { type: string(20) }
+    prv_estado: {type: integer(1) }
+    prv_fax: { type: integer(9) }
+    prv_responsable: { type: string(255) }
+    prv_fecha_ingreso: { type: timestamp }
+    prv_nombre_banco: { type: string(255) }
+    prv_numero_cuenta: { type: string (13) }
+
+  

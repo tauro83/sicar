@@ -1,0 +1,75 @@
+/* 
+    Document   : error
+    Created on : 21/06/2011, 02:18:32 PM
+    Author     : Jose Luis
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+        body{
+		background: white;
+                width: 98%;
+                height: 90%;
+            }
+
+        #error_img{
+                background-color: white;
+                padding-bottom: 10%;
+        }
+
+	#error_div{
+                padding-top:3%;
+		border: 1px solid #CC0000;
+                position: relative;
+	}
+
+	h1{
+		text-align: left;
+		color: #CC0000;
+                background-color: white;
+                position: absolute;
+                left:10%;
+	}
+
+        #auto_img{
+            position: relative;
+            left: 25%;
+            width: 20%;
+        }
+
+        #mecanico_img{
+                position: relative;
+                left: 70%;
+                width: 20%;
+                top: -12em;
+        }
+
+        #mensaje{
+             color: #CC0000;
+             font: 14px Tahoma;
+             font-weight: bold;
+             position: relative;
+             left:10%;
+             top: -5em;
+        }
+
+        #link_inicio{
+             color: #007ED9;
+             font: 14px Tahoma;
+             font-weight: bold;
+             position: relative;
+             left:30%;
+             top: -5em;
+        }
+
+        #link_inicio a{
+            text-decoration: none;
+        }
+
+        #link_inicio a:hover{
+            text-decoration: underline;
+        }

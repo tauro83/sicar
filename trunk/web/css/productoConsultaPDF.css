@@ -1,0 +1,37 @@
+/*********************FORMULARIOS*****************************/
+
+.titulo_principal{
+    font-family: "Trebuchet MS";
+    font-size: 12px;
+    border-bottom: 2px solid;
+    border-color: #009AD9;
+}
+.info_producto{
+    border: solid 1px #92BDD6;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 2%;
+    background-color: white;
+}
+
+.info_producto_titulo{
+    border-bottom: 1px solid #92BDD6;
+    margin-bottom: 1%;
+    font-size:11pt;
+    font-family: "Trebuchet MS";
+    font-weight: bold;
+    font-style:italic;
+    margin-top: -1.5%;
+    height:auto;
+}
+
+td.tabla-titulo{
+    font-weight:bold;
+    font-size:12px;
+    width:130px;
+}
+
+td.tabla-contenido{
+    width:230px;
+    font-size:12px;
+}

@@ -1,0 +1,23 @@
+## YAML Template.
+---
+
+default:
+  is_secure: false
+  
+new:
+  credentials: [[Administrador, Contador]]
+  
+newNotaVenta:
+  credentials: [[Administrador, Contador]]
+
+newProforma:
+  credentials: [[Administrador, Contador]]
+  
+consultaGenerica:
+  credentials: [[Administrador, Contador, Bodeguero]]
+  
+reporteDelDia:
+  credentials: [[Administrador, Contador]]
+  
+## falta agregar modificarFactura
+## falta codigo de barras

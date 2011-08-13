@@ -1,0 +1,19 @@
+## YAML Template.
+---
+sfGuardGroup:
+  sfGuardGroup1:
+    id: 1
+    name: 'Administrador'
+    description: 'Funciones totales de SICAR'
+    created_at: '2011-1-1'
+    updated_at: '2011-1-1'
+  sfGuardGroup2:
+    id: 2
+    name: 'Bodeguero'
+    created_at: '2011-1-1'
+    updated_at: '2011-1-1'    
+  sfGuardGroup3:
+    id: 3
+    name: 'Contador'
+    created_at: '2011-1-1'
+    updated_at: '2011-1-1'

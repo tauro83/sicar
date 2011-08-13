@@ -20,10 +20,9 @@
                 $("#resultado_consulta_marca").jqGrid({
                     datatype: 'xmlstring',
                     datastr : "<?php echo preg_replace("[\n|\r|\n\r]", ' ', Proveedor::xmlStringDataProveedores($proveedores,$consulta,$delete)) ?>",
-                    colNames:['Nombre', 'RUC', 'Dirección','Teléfono','Responsable'],
+                    colNames:['Nombre','Dirección','Teléfono','Responsable'],
                     colModel :[
                         {name:'nombre', index:'nombre', width:45, align:'center'},
-                        {name:'ruc', index:'ruc', width:30, align:'center', sortable:false},
                         {name:'direccion', index:'direccion', width:45, align:'center', sortable:false},
                         {name:'telefono', index:'telefono', width:20, align:'center', sortable:false},
                         {name:'responsable', index:'responsable', width:30, align:'center', sortable:false},

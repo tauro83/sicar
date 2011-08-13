@@ -5,15 +5,16 @@
 <ul id="codigoslibres"><?php
         $i = 100;
         $j = 0;
+        $n = 0;
         while ($j<20 && $i <= 999999)
         {
-            $producto = Producto::consultarProductoPorCodigo($i);
-            if ($producto==null){
+            if ($productos[$n]->getProCodigo() != $i){
                 echo ("<li>$i</li>");
                 ++$j;
                 ++$i;
             }
             else{
+                ++$n;
                 ++$i;
             }
         }        

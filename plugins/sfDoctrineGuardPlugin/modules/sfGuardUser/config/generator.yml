@@ -20,7 +20,8 @@ generator:
         password_again: { label: "Repetir contraseña:" }
         is_active: { label: "Activo: "}
         is_super_admin: { label: "Super administrador: " }
-        groups_list: { label: "Grupo:" }
+        groups_list: { label: "Grupos:" }
+        
 
       list:
         title:   Filtrar usuarios

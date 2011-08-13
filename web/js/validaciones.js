@@ -47,13 +47,11 @@ function agregarValidacionesProducto(){
         varNombre.setAttribute("maxlength","100");
         var ValNombre = new LiveValidation("producto_pro_nombre",{validMessage: " ", wait: 500});
         ValNombre.add(Validate.Presence,{failureMessage: "Requerido"});
-        ValNombre.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Error: caracter inválido"});
+        ValNombre.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Solo puede ingresar dígitos,letras y paréntesis"});
     }
     var descripcion = document.getElementById("producto_pro_descripcion");
     if(descripcion){
         descripcion.setAttribute("maxlength","200");
-        var ValDesc = new LiveValidation("producto_pro_descripcion",{validMessage: " ", wait: 500});
-        ValDesc.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Error: caracter inválido"});
     }
 }
 function agregarValidacionesConsultaProducto(){
@@ -71,7 +69,7 @@ function agregarValidacionesConsultaFactura(){
         codigo.setAttribute("maxlength","10");
         var ValCodigo = new LiveValidation("consulta_codigo",{validMessage: " ", wait: 500});
         ValCodigo.add(Validate.Presence,{failureMessage: "Requerido"});
-        ValCodigo.add(Validate.Format,{pattern: /^\d{1,10}$/,failureMessage: "Ingrese un código válido"} );
+        ValCodigo.add(Validate.Format,{pattern: /^\d{10}$/,failureMessage: "Ingrese un código válido"} );
     }
    
    var fecha_inicio =  document.getElementById("consulta_fecha_inicio");
@@ -100,7 +98,7 @@ function agregarValidacionesFactura(){
     if(f_id){
         f_id.setAttribute("maxlength","13");
         var f_identificacion = new LiveValidation("documento_de_facturacion_cliente_0_cli_identificacion",{validMessage: " ", wait: 500});
-        f_identificacion.add(Validate.Presence,{failureMessage: "Requerido      "});
+        f_identificacion.add(Validate.Presence,{failureMessage: "Req"});
         f_identificacion.add(Validate.Format,{pattern: /(^\d{10}$|^\d{10}001$)/,failureMessage: "Ingrese un número de cédula o RUC"} );
     }
 
@@ -108,22 +106,18 @@ function agregarValidacionesFactura(){
     if(f_n){
         f_n.setAttribute("maxlength","100");
         var f_nombre= new LiveValidation("documento_de_facturacion_cliente_0_cli_nombre",{validMessage: " ", wait: 500});
-        f_nombre.add(Validate.Presence,{failureMessage:"Requerido     "});
-        f_nombre.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Caracter inválido"});
+        f_nombre.add(Validate.Presence,{failureMessage: "Req"});
     }
     var f_a = document.getElementById("documento_de_facturacion_cliente_0_cli_apellido");
     if(f_a){
         f_a.setAttribute("maxlength","100");
         var f_apellido= new LiveValidation("documento_de_facturacion_cliente_0_cli_apellido",{validMessage: " ", wait: 500});
-        f_apellido.add(Validate.Presence,{failureMessage: "Requerido     "});
-        f_apellido.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Caracter inválido"});
+        f_apellido.add(Validate.Presence,{failureMessage: "Req"});
     }
 
     var f_s = document.getElementById("documento_de_facturacion_cliente_0_cli_direccion");
     if(f_s){
         f_s.setAttribute("maxlength","150");
-        var f_sa= new LiveValidation("documento_de_facturacion_cliente_0_cli_direccion",{validMessage: " ", wait: 500});
-        f_sa.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Caracter inválido"});
     }
 
     var f_t = document.getElementById("documento_de_facturacion_cliente_0_cli_telefono");
@@ -145,7 +139,6 @@ function agregarValidacionesFactura(){
         f_cor.setAttribute("maxlength","50");
         var f_correo= new LiveValidation("documento_de_facturacion_cliente_0_cli_correo",{validMessage: " ", wait: 500});
         f_correo.add(Validate.Email,{failureMessage: "Ingrese un e-mail correcto"});
-        f_correo.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\@)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\@)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Caracter inválido"});
     }
     var i=1;
     var cantidad="det_cantidad_";
@@ -201,7 +194,6 @@ function agregarValidacionesCliente(){
         f_n.setAttribute("maxlength","100");
         var f_nombre= new LiveValidation("cliente_cli_nombre",{validMessage: " ", wait: 500});
         f_nombre.add(Validate.Presence,{failureMessage: "Requerido"});
-        f_nombre.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Error: caracter inválido"});
     }
 
     var f_a = document.getElementById("cliente_cli_apellido");
@@ -209,7 +201,6 @@ function agregarValidacionesCliente(){
         f_a.setAttribute("maxlength","100");
         var f_apellido= new LiveValidation("cliente_cli_apellido",{validMessage: " ", wait: 500});
         f_apellido.add(Validate.Presence,{failureMessage: "Requerido"});
-        f_apellido.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Error: caracter inválido"});
     }
 
     var f_s = document.getElementById("cliente_cli_direccion");
@@ -217,7 +208,6 @@ function agregarValidacionesCliente(){
         f_s.setAttribute("maxlength","150");
         var f_direccion= new LiveValidation("cliente_cli_direccion",{validMessage: " ", wait: 500});
         f_direccion.add(Validate.Presence,{failureMessage: "Requerido"});
-        f_direccion.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Error: caracter inválido"});
     }
 
     var f_c = document.getElementById("cliente_cli_celular");
@@ -229,9 +219,9 @@ function agregarValidacionesCliente(){
 
     var f_t = document.getElementById("cliente_cli_telefono");
     if(f_t){
-        f_t.setAttribute("maxlength","29");
+        f_t.setAttribute("maxlength","10");
         var f_telefono= new LiveValidation("cliente_cli_telefono",{validMessage: " ", wait: 500});
-        f_telefono.add(Validate.Format,{pattern: /^\d{9}$|^\d{9}(\-)\d{9}$|^\d{9}(\-)\d{9}(\-)\d{9}$/,failureMessage: "Ingrese un teléfono válido"} );
+        f_telefono.add(Validate.Format,{pattern: /^\d{9}$/,failureMessage: "Ingrese un teléfono válido"} );
     }
 
     var f_cor = document.getElementById("cliente_cli_correo");
@@ -239,7 +229,6 @@ function agregarValidacionesCliente(){
         f_cor.setAttribute("maxlength","40");
         var f_correo= new LiveValidation("cliente_cli_correo",{validMessage: " ", wait: 500});
         f_correo.add(Validate.Email,{failureMessage: "Ingrese un e-mail correcto"});
-        f_correo.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\@)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\@)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Error: caracter inválido"});
     }
 }
 
@@ -252,7 +241,6 @@ function agregarValidacionesProveedor(){
         p_nombre.setAttribute("maxlength","150");
         var v_nombre = new LiveValidation("proveedor_prv_nombre",{validMessage: " ", wait: 500});
         v_nombre.add(Validate.Presence,{failureMessage: "Requerido"});
-        v_nombre.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Error: caracter inválido"});
     }
 
     var p_info = document.getElementById("proveedor_prv_info");
@@ -278,36 +266,27 @@ function agregarValidacionesProveedor(){
 
     var p_correo = document.getElementById("proveedor_prv_correo");
     if(p_correo){
-        p_correo.setAttribute("maxlength","30");
+        p_correo.setAttribute("maxlength","20");
         var v_correo= new LiveValidation("proveedor_prv_correo",{validMessage: " ", wait: 500});
         v_correo.add(Validate.Email,{failureMessage: "Ingrese un e-mail correcto"});
-        v_correo.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\@)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\@)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Error: caracter inválido"});
     }
 
     var p_fax = document.getElementById("proveedor_prv_fax");
     if(p_fax){
         p_fax.setAttribute("maxlength","20");
-        p_fax=new LiveValidation("proveedor_prv_fax",{validMessage: " ", wait: 500});
-        p_fax.add(Validate.Format,{pattern: /^\d{6,}$/,failureMessage: "Ingrese un fax válido"} );
     }
 
     var p_responsable = document.getElementById("proveedor_prv_responsable");
     if(p_responsable){
         p_responsable.setAttribute("maxlength","50");
-        p_responsable= new LiveValidation("proveedor_prv_responsable",{validMessage: " ", wait: 500});
-        p_responsable.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Caracter inválido"});
     }
 
     var p_banco = document.getElementById("proveedor_prv_nombre_banco");
     if(p_banco){
         p_banco.setAttribute("maxlength","150");
-        p_banco= new LiveValidation("proveedor_prv_nombre_banco",{validMessage: " ", wait: 500});
-        p_banco.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Caracter inválido"});
     }
     var p_numeroBanco = document.getElementById("proveedor_prv_numero_cuenta");
     if(p_numeroBanco){
         p_numeroBanco.setAttribute("maxlength","13");
-        p_numeroBanco= new LiveValidation("proveedor_prv_numero_cuenta",{validMessage: " ", wait: 500});
-        p_numeroBanco.add(Validate.Format,{pattern: /(^\w*[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\)))(\w*)]{0,}\w*[[(/)(\)( )(\.)(\-)(\_)(\ñ)(\#)(\,)(\()(\))(\w*)(\-)]{0,})$/,failureMessage:"Caracter inválido"});
     }
 }

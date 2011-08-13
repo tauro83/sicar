@@ -33,10 +33,6 @@
                            <td>Fecha Emisi&oacute;n</td>
                            <td><?php echo Fechas::getFechaPersonalizada($df->getDocFechaEmision()); ?></td>
                        </tr>
-                       <tr>
-                           <td>Responsable</td>
-                           <td><?php echo $df->getDocResponsable() ?></td>
-                       </tr>
                    </tbody>
                </table>
            </div>

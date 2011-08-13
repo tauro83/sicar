@@ -48,7 +48,8 @@ class DocumentoDeFacturacionActions extends sfActions
   {
     $documento=new DocumentoDeFacturacion();
     $documento->setDocTipo(1);
-    $documento->setDocResponsable($this->getUser()->getGuardUser()->getUsername()); // Nombre del Autor
+    $documento->setDocResponsable("Administrador"); // Nombre del Autor
+    $documento->Cliente->setCliEstado(1);
     $this->form = new DocumentoDeFacturacionForm($documento);
     //$next_id=  DocumentoDeFacturacion::getNextId();
     //echo $next_id;
@@ -74,7 +75,7 @@ class DocumentoDeFacturacionActions extends sfActions
   {
     $documento=new DocumentoDeFacturacion();
     $documento->setDocTipo(4); // 4 tipo de factura de compras
-    $documento->setDocResponsable($this->getUser()->getGuardUser()->getUsername()); // Nombre del Autor
+    $documento->setDocResponsable("Administrador"); // Nombre del Autor
     $documento->setDocClienteId(1); 
     $this->form = new DocumentoDeFacturacionForm($documento);
     $this->df=$documento;
@@ -97,7 +98,7 @@ class DocumentoDeFacturacionActions extends sfActions
    {
         $documento=new DocumentoDeFacturacion();
         $documento->setDocTipo(2); // Tipo de Nota de Venta
-        $documento->setDocResponsable($this->getUser()->getGuardUser()->getUsername());
+        $documento->setDocResponsable("Administrador");
         $documento->setDocClienteId(1); // Id del cliente Default
         $this->form = new DocumentoDeFacturacionForm($documento);
         $documento->save();
@@ -121,7 +122,8 @@ class DocumentoDeFacturacionActions extends sfActions
    {
         $documento=new DocumentoDeFacturacion();
         $documento->setDocTipo(3); // Tipo Proforma
-        $documento->setDocResponsable($sf_user->getGuardUser()->getUsername()); // Nombre del Autor
+        $documento->setDocResponsable("Administrador"); // Nombre del Autor
+        $documento->Cliente->setCliEstado(1);
         $this->form = new DocumentoDeFacturacionForm($documento);
         $documento->save();
         $this->titulo="Ingreso de Proforma";
@@ -152,9 +154,15 @@ class DocumentoDeFacturacionActions extends sfActions
 
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($documento_de_facturacion = Doctrine_Core::getTable('DocumentoDeFacturacion')->find(array($request->getParameter('doc_id'))), sprintf('Object documento_de_facturacion does not exist (%s).', $request->getParameter('doc_id')));
-    $this->form = new DocumentoDeFacturacionForm($documento_de_facturacion);
-    $this->df=$documento_de_facturacion;
+     $this->df=DocumentoDeFacturacion::consultarDocumentoPorCodigoEdit($request->getParameter('txt_codigo_documento'));
+
+        if($this->df!= null):
+            $this->form = new DocumentoDeFacturacionForm($this->df);
+        endif;
+
+//    $this->forward404Unless($documento_de_facturacion = Doctrine_Core::getTable('DocumentoDeFacturacion')->find(array($request->getParameter('doc_id'))), sprintf('Object documento_de_facturacion does not exist (%s).', $request->getParameter('doc_id')));
+//    $this->form = new DocumentoDeFacturacionForm($documento_de_facturacion);
+//    $this->df=$documento_de_facturacion;
   }
 
   public function executeUpdate(sfWebRequest $request)
@@ -205,6 +213,9 @@ class DocumentoDeFacturacionActions extends sfActions
 
   }
 
+ 
+
+
   /*************************************************
     *Nombre: executeConsultaPorFechas($request)
     *Parametros:
@@ -239,11 +250,10 @@ class DocumentoDeFacturacionActions extends sfActions
         $codigo_producto=$request->getParameter('txt_producto_documento');
         $fecha_inicio=$request->getParameter('txt_fecha_inicio_documento');
         $fecha_fin=$request->getParameter('txt_fecha_fin_documento');
-        //$dfs=DocumentoDeFacturacion::consultarDocumentoPorFechas($fecha_inicio,$fecha_fin);
-        $dfs = DocumentoDeFacturacion::consultarDetallesEntreFechasYPorProducto($fecha_inicio, $fecha_fin, $codigo_producto);
+        $dfs=DocumentoDeFacturacion::consultarDocumentoPorFechas($fecha_inicio,$fecha_fin);
         $this->band=0;
-        $this->str_kardex=DocumentoDeFacturacion::consultarProductosKardex2($dfs);
-        $this->titulo='Kárdex entre:'.Fechas::getFechaPersonalizada($fecha_inicio).' y '.Fechas::getFechaPersonalizada($fecha_fin);
+        $this->str_kardex=DocumentoDeFacturacion::consultarProductosKardex($dfs,$codigo_producto);
+        $this->titulo='Kárdex: Producto '.$codigo_producto.' entre'.Fechas::getFechaPersonalizada($fecha_inicio).' y '.Fechas::getFechaPersonalizada($fecha_fin);
         $this->cad=strstr($this->str_kardex,'<cell>');
         //echo $this->cad;
        // die();
@@ -265,7 +275,7 @@ class DocumentoDeFacturacionActions extends sfActions
   public function executeConsultaGenerica(sfWebRequest $request)
   {
         $this->tipo_consulta=$request->getParameter('tipo_consulta');
-        //$this->edit=$request->getParameter('edit');
+        $this->edit=$request->getParameter('edit');
         //$this->delete=$request->getParameter('delete');
   }
 
@@ -287,9 +297,13 @@ class DocumentoDeFacturacionActions extends sfActions
       $documento_de_facturacion = $form->save();
       DetalleDocumentoDeFacturacion::limpiar();
       DocumentoDeFacturacion::limpiar();
+
       if($documento_de_facturacion->getDocTipo()!= 3 && $documento_de_facturacion->getDocTipo()!=4): // Si es proforma no se debe disminuir stock  ni actualizar ultima fecha de venta
          Producto::disminuirStockProducto($documento_de_facturacion);
          Producto::actualizarFechaUltimaVenta($documento_de_facturacion);
+         Cliente::limpiar($documento_de_facturacion);
+      elseif($documento_de_facturacion->getDocTipo()==3):
+              Cliente::limpiar($documento_de_facturacion);
       elseif($documento_de_facturacion->getDocTipo()==4):
          Producto::aumentarStockProducto($documento_de_facturacion);
          Producto::actualizarFechaUltimaCompra($documento_de_facturacion);
@@ -319,12 +333,10 @@ class DocumentoDeFacturacionActions extends sfActions
     $stylesheet = file_get_contents(sfConfig::get('sf_web_dir').'/css/factura_style.css');
     $mpdf->WriteHTML($stylesheet,1); // el parámetro le dice que sólo es css y no contenido html
     $mpdf->WriteHTML($html,2);
-    $mpdf->Output('Factura.pdf','D');
+    $mpdf->Output('Factura.pdf','I');
     throw new sfStopException();
   }
   
-  public function executeReporteDelDia(sfWebRequest $request){
-      $this->lista = DocumentoDeFacturacion::obtenerReporteDelDia();
-  }
+   
 }
 

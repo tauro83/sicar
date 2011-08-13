@@ -32,7 +32,13 @@
                              <?php echo $form['pro_codigo']->renderLabel(null, array('class' => 'lbl_form')); ?>
                         </td>
                         <td class="tbl_cont">
-                            <?php echo $form['pro_codigo'] ?>
+
+                            <?php  if($form->getObject()->isNew()):
+                                       echo $form['pro_codigo']->render();
+                                   else:
+                                       echo $form['pro_codigo']->render(array("readonly"=>"readonly"));
+                                   endif;    ?>
+
                             <?php echo $form['pro_codigo']->renderError(); ?>
                             
                         </td>

@@ -39,6 +39,16 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
         return $doc_facturacion;
     }
 
+    public static function consultarDocumentoPorCodigoEdit($id_codigo){
+        $doc_facturacion=Doctrine_Core::getTable('DocumentoDeFacturacion')
+                            ->createQuery('d')
+                            ->where('d.doc_codigo= ?',$id_codigo)
+                            ->andWhere('d.doc_tipo != 4')
+                            ->fetchOne();
+
+        return $doc_facturacion;
+    }
+
      /*************************************************
     *Nombre: consultarDocumentoPorFechas($fecha_inicio,$fecha_fin)
     *Parametros:
@@ -60,45 +70,6 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
                             ->execute();
         return $dfs;
     }
-    
-    public static function consultarDetallesEntreFechasYPorProducto($fecha_inicio,$fecha_fin,$producto){
-        $detalles = Doctrine_Core::getTable('DetalleDocumentoDeFacturacion')
-                            ->createQuery('p')
-                            ->leftJoin('p.Producto pr')
-                            ->andWhere('p.det_codigo = pr.pro_codigo')
-                            ->leftJoin('p.DocumentoDeFacturacion d')
-                            ->andWhere('p.det_documento_id = d.doc_id')
-                            ->andWhere('d.doc_fecha_emision>= ?',$fecha_inicio)
-                            ->andWhere('d.doc_fecha_emision<= ?',$fecha_fin)
-                            ->andWhere('p.det_codigo = ?', $producto) 
-                            ->andWhere('d.doc_tipo <> 3')
-                            ->execute();
-        return $detalles;
-    }
-    
-    public static function consultarProductosKardex2($dfs){
-      $output = "<?xml version='1.0' encoding='utf-8'?>" . "\n";
-       $output = "<rows>";
-       $output .= "\n" . "<page>1</page>" . "\n";
-       $output .= "<total>1</total>" . "\n";
-       $output .= "<records>" . count($dfs) . "</records>" . "\n";
-        foreach($dfs as $df):
-                     if($df->DocumentoDeFacturacion->getDocTipo()==1||$df->DocumentoDeFacturacion->getDocTipo()==2):
-                        $trans="Venta";
-                     else:
-                        $trans="Compra";
-                     endif;
-                    $output .= "<row id='" . $df->getDetId() . "'>" . "\n";
-                    $output .= "<cell>" . Fechas::getFechaPersonalizada($df->DocumentoDeFacturacion->getDocFechaEmision())."</cell>" . "\n";
-                    $output .= "<cell>" .$trans."</cell>" . "\n";
-                    $output .= "<cell>" .$df->getDetCantidad()."</cell>" . "\n";
-                    $output .= "<cell>" .$df->getDetValorTotal()."</cell>" . "\n";
-                    $output .= "<cell>" .$df->DocumentoDeFacturacion->getDocCodigo()."</cell>" . "\n";
-                    $output .= "</row>" . "\n";
-          endforeach;
-       $output .= "</rows>" . "\n";
-       return $output;
-    }
 
     public static function consultarProductosKardex($dfs,$codigo_producto){
        $output = "<?xml version='1.0' encoding='utf-8'?>" . "\n";
@@ -107,11 +78,11 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
        $output .= "<total>1</total>" . "\n";
        $output .= "<records>" . count($dfs) . "</records>" . "\n";
         foreach($dfs as $df):
-           if($df->getDocTipo()!=3):
+           if($df->getDocTipo()!=5):
                $detalles=$df->DetalleDocumento;
                foreach($detalles as $det):
                      $producto=$det->Producto;
-                     if($producto->getProCodigo()==$codigo_producto):
+                     if(strcasecmp($producto->getProCodigo(),$codigo_producto)==0):
                           $band=1;
                          if($df->getDocTipo()==1||$df->getDocTipo()==2):
                             $trans="Venta";
@@ -157,12 +128,14 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
                     $tipo="Factura";
             elseif($df->getDocTipo()==2):
                     $tipo="Nota de Venta";
-            else:
+            elseif($df->getDocTipo()==3):
                     $tipo="Proforma";
+            else:
+                    $tipo="Factura de Compras";
             endif;
             $output .= "<row id='" . $df->getDocId() . "'>" . "\n";
             //$output .= "<cell>" . $df->getDocCodigo() . "</cell>" . "\n";
-            $output .= "<cell><![CDATA[<a target='_blank' href='" . url_for('DocumentoDeFacturacion/show?doc_id='.$df->getDocId()) . "'>".$df->getDocCodigo()."</a>]]></cell>" . "\n";
+            $output .= "<cell><![CDATA[<a style='color:#007ED9; text-decoration:underline;' target='_blank' href='" . url_for('DocumentoDeFacturacion/show?doc_id='.$df->getDocId()) . "'>".$df->getDocCodigo()."</a>]]></cell>" . "\n";
             $output .= "<cell>" . Fechas::getFechaPersonalizada($df->getDocFechaEmision()). "</cell>" . "\n";
             $output .= "<cell>" . $df->getDocTotalDocumento() . "</cell>" . "\n";
             $output .= "<cell>" . $df->Cliente->getCliNombre().' '.$df->Cliente->getCliApellido(). "</cell>" . "\n";
@@ -212,41 +185,5 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
            $doc->delete();
        }
     }
-    
-    public static function obtenerReporteDelDia(){
-        $productos=Doctrine_Core::getTable('DetalleDocumentoDeFacturacion')
-                            ->createQuery('p')
-                            ->leftJoin('p.Producto pr')
-                            ->andWhere('p.det_codigo = pr.pro_codigo')
-                            ->leftJoin('p.DocumentoDeFacturacion d')
-                            ->andWhere('p.det_documento_id = d.doc_id')
-                            ->andWhere('d.doc_fecha_emision=? ', date("Y-m-d"))
-                            ->execute();
-        return $productos;
-    }
-    
-    public static function xmlReporteDelDia($lista){
-        $output = "<?xml version='1.0' encoding='utf-8'?>" . "\n";
-        $output = "<rows>";
-        $output .= "\n" . "<page>1</page>" . "\n";
-        $output .= "<total>1</total>" . "\n";
-        $output .= "<records>" . count($lista) . "</records>" . "\n";
-        foreach ($lista as $detalle) {
-            $utilidad = ($detalle->getDetValorUnitario() - $detalle->Producto->getProPrecioUnitario());
-            $output .= "<row>";
-            $output .= "<cell>" . strtoupper($detalle->Producto->getProNombre()) . "</cell>" . "\n";
-            $output .= "<cell>" . $detalle->getDetCantidad() . "</cell>" . "\n";
-            $output .= "<cell>" . $detalle->getDetValorUnitario() . "</cell>" . "\n";
-            $output .= "<cell>" . $detalle->Producto->getProPrecioUnitario() . "</cell>" . "\n";
-            $output .= "<cell>" . $utilidad . "</cell>" . "\n";
-            $output .= "<cell>" . ($utilidad * $detalle->getDetCantidad()) . "</cell>" . "\n"; 
-            $output .= "<cell>" . round(($utilidad * 100) / $detalle->Producto->getProPrecioUnitario(),2) .'%' . "</cell>" . "\n";
-            $output .= "<cell>" . $detalle->DocumentoDeFacturacion->getDocResponsable() . "</cell>" . "\n";
-            $output .= "</row>" . "\n";
-        }
 
-        $output .= "</rows>" . "\n";
-        return $output;
-    }
-    
 }

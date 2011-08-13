@@ -79,19 +79,19 @@ class DocumentoDeFacturacionForm extends BaseDocumentoDeFacturacionForm
   }
 
 
-  protected function doSave($con = null)
-      {
-         // $arr=$this->getEmbeddedForms();
-          $ar=$this->getEmbeddedForm('detalle_1');
-          echo $ar->getObject()->setDetDocumentoId(1);
-          //die();
-
-
-//        $alg=$this->getEmbeddedForm('detalle_1')->getEmbeddedForms();
-//        echo $alg[0];
-//        die();
-
-        return parent::doSave($con);
-      }
+//  protected function doSave($con = null)
+//      {
+//         // $arr=$this->getEmbeddedForms();
+//          $ar=$this->getEmbeddedForm('cliente');
+//          echo $ar->getObject()->setDetDocumentoId(1);
+//          //die();
+//
+//
+////        $alg=$this->getEmbeddedForm('detalle_1')->getEmbeddedForms();
+////        echo $alg[0];
+////        die();
+//
+//        return parent::doSave($con);
+//      }
 
 }

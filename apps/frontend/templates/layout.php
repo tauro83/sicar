@@ -80,14 +80,15 @@
                         <li><a href="#" >Facturación</a>
                             <ul>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/newFacturaCompra") ?>'>Ingreso Factura de Compra</a></li>
+                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/newFacturaCompra") ?>'>Modificacion Factura de Compra</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/new") ?>'>Ingreso Factura</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/newNotaVenta") ?>'>Ingreso Nota de Venta</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/newProforma") ?>'>Ingreso Proforma</a></li>
-                                <li>Modificaci&oacute;n de Documento</li>
-                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=codigo") ?>'>Reporte por C&oacute;digo</a></li>
-                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/reporteDelDia") ?>'>Reporte del D&iacute;a</a></li>
-                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=fecha") ?>'>Reporte por Fecha</a></li>
-                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=kardex") ?>'>K&aacute;rdex</a></li>
+                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=codigo&edit=true") ?>'>Modificaci&oacute;n de Documento</a></li>
+                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=codigo&edit=false") ?>'>Reporte por C&oacute;digo</a></li>
+                                <li>Reporte del D&iacute;a</li>
+                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=fecha&edit=false") ?>'>Reporte por Fecha</a></li>
+                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=kardex&edit=false") ?>'>K&aacute;rdex</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Proveedor</a>

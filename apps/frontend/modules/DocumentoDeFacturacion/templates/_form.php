@@ -53,6 +53,7 @@
                  <?php echo $form['cliente'][0]['cli_nombre']->render(array("value"=>$df->Cliente->getCliNombre(),"id" =>"nombre_cliente","type"=>"hidden")) ?>
                  <?php echo $form['cliente'][0]['cli_apellido']->render(array("value"=>$df->Cliente->getCliApellido(),"id" =>"apellido_cliente", "type"=>"hidden")) ?>
                  <?php echo $form['cliente'][0]['cli_telefono']->render(array("value"=>$df->Cliente->getCliTelefono(), "id" =>"telf_cliente", "type"=>"hidden")) ?>
+                 <?php echo $form['cliente'][0]['cli_estado']->render(array("value"=>"1")) ?>
               </div>
          <?php endif; ?>
 
@@ -64,8 +65,9 @@
                               <?php echo $form['cliente'][0]['cli_identificacion']->renderLabel(); ?>
                         </td>
                         <td colspan="5">
-                                <?php echo $form['cliente'][0]['cli_identificacion']?>
+                                <?php echo $form['cliente'][0]['cli_identificacion']->render(array("id"=>"cli_identificacion", "onblur" => "consultarDetallesCliente()"))?>
                                 <?php echo $form['cliente'][0]['cli_identificacion']->renderError() ?>
+                                <img src="/images/loader2.gif" alt="add_producto" id="loader_cliente" class="hidden" />
                        </td>
                       </tr>
                       <tr>
@@ -104,6 +106,7 @@
                         </td>
                         <td>
                                 <?php echo $form['cliente'][0]['cli_correo']->render(array('class' => 'campo_corto')) ?>
+                                
                        </td>
                      </tr>
                  </tbody>
@@ -152,13 +155,13 @@
                 <th>V. Total</th>
             <thead>
             <tbody>
-            <?php for($i=1;$i<=10;$i++) { ?>
+            <?php for($i=1;$i<=count($df->DetalleDocumento);$i++) { ?>
              <tr>
                 <td><img src="/images/loader2.gif" alt="add_producto" id="<?php echo "loader_".$i ?>" class="hidden" /></td>
                 <td class="texto-codigo"><?php echo $form['detalle_'.$i]['det_codigo']->render(array("id"=>"det_codigo_".$i, "onblur" => "consultarDetallesProducto('$i')")) ?></td>
                 <td class="texto-cantidad"><?php echo $form['detalle_'.$i]['det_cantidad']->render(array("id"=>"det_cantidad_".$i, "onblur" => "calcularVTotal('$i')")) ?></td>
                 <td class="texto-descripcion"><?php echo $form['detalle_'.$i]['det_descripcion']->render(array("id"=>"det_descripcion_".$i)) ?></td>
-                <td class="texto-unitario"><?php echo $form['detalle_'.$i]['det_valor_unitario']->render(array("id"=>"det_val_unitario_".$i, "onblur" => "validarPrecio('$i'); ")) ?></td>
+                <td class="texto-unitario"><?php echo $form['detalle_'.$i]['det_valor_unitario']->render(array("id"=>"det_val_unitario_".$i, "onblur" => "validarPrecio('$i'); calcularVTotal('$i'); ")) ?></td>
                 <td class="texto-total"><?php echo $form['detalle_'.$i]['det_valor_total']->render(array("id"=>"det_val_total_".$i)) ?></td>
                 <td><?php echo $form['detalle_'.$i]['det_producto_id']->render(array("id"=>"det_producto_id_".$i,"style"=>"display:none")) ?></td>
                 <td><?php echo $form['detalle_'.$i]['det_documento_id']->render(array("id"=>"det_documento_id_".$i,"style"=>"display:none","value"=>$form->getObject()->getDocId())) ?></td>
@@ -549,7 +552,7 @@ function enviarFormularioDoc2(){
         var fecha = validarExistenciaCampo("documento_de_facturacion_doc_fecha_emision");
         if(fecha){
            
-            var idCliente = validarExistenciaCampo("documento_de_facturacion_cliente_0_cli_identificacion");
+            var idCliente = validarExistenciaCampo("cli_identificacion");
             if(idCliente){
                 var nombreCliente= validarExistenciaCampo("documento_de_facturacion_cliente_0_cli_nombre");
                 if(nombreCliente){
@@ -616,6 +619,50 @@ function validarExistenciaCampo(id){
 }
 }
 
+function consultarDetallesCliente(){
+
+           var loading=document.getElementById("loader_cliente");
+
+//         if (codigo_tecla == 9){
+            var cedula_consulta= document.getElementById("cli_identificacion").value;
+            if(cedula_consulta!=''){
+            loading.setAttribute("class", "");
+           $.ajax({
+             type: "GET",
+             url: '<?php echo url_for('Cliente/obtenerXMLClienteCedula?cedula_cli=') ?>'+cedula_consulta,
+             dataType: "xml",
+             success: function(xml){
+                     $(xml).find("cliente").each(function () {
+                              if($(this).find("mensaje").text() == "Cliente Encontrado"){
+                                $('#documento_de_facturacion_cliente_0_cli_nombre').val($(this).find("nombre").text());
+                                $('#documento_de_facturacion_cliente_0_cli_apellido').val($(this).find("apellido").text());
+                                $('#documento_de_facturacion_cliente_0_cli_direccion').val($(this).find("direccion").text());
+                                $('#documento_de_facturacion_cliente_0_cli_telefono').val($(this).find("telefono").text());
+                                $('#documento_de_facturacion_cliente_0_cli_celular').val($(this).find("celular").text());
+                                $('#documento_de_facturacion_cliente_0_cli_correo').val($(this).find("correo").text());
+                               }else{
+                                  alert($(this).find("mensaje").text());
+                                  resetCamposCliente();
+                              }
+                          });
+                          loading.setAttribute("class", "hidden");
+                  }
+            });
+            }
+
+      return true;
+
+}
+   function resetCamposCliente(){
+        $('#documento_de_facturacion_cliente_0_cli_nombre').val("");
+        $('#documento_de_facturacion_cliente_0_cli_apellido').val("");
+        $('#documento_de_facturacion_cliente_0_cli_direccion').val("");
+        $('#documento_de_facturacion_cliente_0_cli_telefono').val("");
+        $('#documento_de_facturacion_cliente_0_cli_celular').val("");
+        $('#documento_de_facturacion_cliente_0_cli_correo').val("");
+   }
+
+   
   $(function() {
                var dates = $( "#documento_de_facturacion_doc_fecha_emision" ).datepicker(
                       {
@@ -626,6 +673,8 @@ function validarExistenciaCampo(id){
                         dateFormat: 'yy-mm-dd'
 		});
 	});
+
+
 
 </script>
    

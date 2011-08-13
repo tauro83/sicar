@@ -57,7 +57,6 @@ abstract class BaseCliente extends sfDoctrineRecord
         $this->hasColumn('cli_identificacion', 'string', 13, array(
              'type' => 'string',
              'notnull' => true,
-             'unique' => true,
              'length' => 13,
              ));
         $this->hasColumn('cli_nombre', 'string', 255, array(

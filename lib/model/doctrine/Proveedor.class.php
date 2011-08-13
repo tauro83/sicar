@@ -117,7 +117,6 @@ class Proveedor extends BaseProveedor
                 $output .= "<cell><![CDATA[<a style='color:#007ED9; text-decoration:underline;' target='_blank' href='" . url_for('Proveedor/deleteProveedor?prv_id='.$proveedor->getPrvId()) . "'>".strtoupper($proveedor->getPrvNombre())."</a>]]></cell>" . "\n";
             else
                 $output .= "<cell><![CDATA[<a style='color:#007ED9; text-decoration:underline;' target='_blank' href='" . url_for('Proveedor/show?prv_id='.$proveedor->getPrvId()) . "'>".strtoupper($proveedor->getPrvNombre())."</a>]]></cell>" . "\n";
-            $output .= "<cell>" . $proveedor->getPrvRuc() . "</cell>" . "\n";
             $output .= "<cell>" . ucwords($proveedor->getPrvDireccion()) . "</cell>" . "\n";
             $output .= "<cell>" . $proveedor->getPrvTelefono() . "</cell>" . "\n";
             $output .= "<cell>" . ucwords($proveedor->getPrvResponsable()) . "</cell>" . "\n";

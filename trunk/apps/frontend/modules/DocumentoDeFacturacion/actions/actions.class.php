@@ -48,7 +48,7 @@ class DocumentoDeFacturacionActions extends sfActions
   {
     $documento=new DocumentoDeFacturacion();
     $documento->setDocTipo(1);
-    $documento->setDocResponsable("Administrador"); // Nombre del Autor
+    $documento->setDocResponsable($this->getUser()->getGuardUser()->getUsername()); // Nombre del Autor
     $documento->Cliente->setCliEstado(1);
     $this->form = new DocumentoDeFacturacionForm($documento);
     //$next_id=  DocumentoDeFacturacion::getNextId();
@@ -75,7 +75,7 @@ class DocumentoDeFacturacionActions extends sfActions
   {
     $documento=new DocumentoDeFacturacion();
     $documento->setDocTipo(4); // 4 tipo de factura de compras
-    $documento->setDocResponsable("Administrador"); // Nombre del Autor
+    $documento->setDocResponsable($this->getUser()->getGuardUser()->getUsername()); // Nombre del Autor
     $documento->setDocClienteId(1); 
     $this->form = new DocumentoDeFacturacionForm($documento);
     $this->df=$documento;
@@ -98,7 +98,7 @@ class DocumentoDeFacturacionActions extends sfActions
    {
         $documento=new DocumentoDeFacturacion();
         $documento->setDocTipo(2); // Tipo de Nota de Venta
-        $documento->setDocResponsable("Administrador");
+        $documento->setDocResponsable($this->getUser()->getGuardUser()->getUsername()); // Nombre del Autor
         $documento->setDocClienteId(1); // Id del cliente Default
         $this->form = new DocumentoDeFacturacionForm($documento);
         $documento->save();
@@ -122,7 +122,7 @@ class DocumentoDeFacturacionActions extends sfActions
    {
         $documento=new DocumentoDeFacturacion();
         $documento->setDocTipo(3); // Tipo Proforma
-        $documento->setDocResponsable("Administrador"); // Nombre del Autor
+        $documento->setDocResponsable($this->getUser()->getGuardUser()->getUsername()); // Nombre del Autor
         $documento->Cliente->setCliEstado(1);
         $this->form = new DocumentoDeFacturacionForm($documento);
         $documento->save();

@@ -85,7 +85,7 @@
 }
 .table_factura_show td{
      font-family: "Trebuchet MS";
-     font-size:10px;
+     font-size:11px;
      text-align: left;
      border: solid 1px #92BDD6;
      width:8%;
@@ -113,13 +113,14 @@
      padding-top: 0.5%;
      padding-bottom: 0.5%;*/
 }
+
 .campo_largo{
-    width: 60%;
+    width: 98%;
 }
 
 .campo_medio{
-    width: 60%;
-    margin-right: 25%;
+    width: 80%;
+    margin-right: 6%;
     margin-bottom: 0.5%;
     margin-top: 0.5%;
 }
@@ -145,51 +146,4 @@
      padding-left:2%;
      padding-top: 0.5%;
      padding-bottom: 0.5%;
-}
-
-/************************estilos de factura : no mostrar mensaje de error*****************/
-#documento_de_facturacion_cliente_0_cli_identificacion + span{
-    font-size: 11px;
-}
-#documento_de_facturacion_cliente_0_cli_nombre + .LV_invalid{
-    font-size: 11px;
-    margin-left: -22%;
-    margin-right: 110px;
-}
-
-#documento_de_facturacion_cliente_0_cli_nombre + .LV_valid{
-    font-size: 12px;
-    margin-left: -22%;
-    margin-right: 150px;
-}
-
-#documento_de_facturacion_cliente_0_cli_apellido + .LV_invalid{
-    font-size: 11px;
-    margin-left: -22%;
-    margin-right: 100px;
-}
-#documento_de_facturacion_cliente_0_cli_apellido + .LV_valid{
-    font-size: 11px;
-    margin-left: -22%;
-    margin-right: 100px;
-}
-#documento_de_facturacion_cliente_0_cli_direccion + .LV_invalid{
-    font-size: 11px;
-    margin-left: 7%;
-}
-#documento_de_facturacion_cliente_0_cli_direccion + .LV_valid{
-    margin-left: 7%;
-    font-size: 11px;
-}
-#documento_de_facturacion_cliente_0_cli_telefono + .LV_invalid,#documento_de_facturacion_cliente_0_cli_telefono + .LV_valid{
-    display: none;
-}
-#documento_de_facturacion_cliente_0_cli_celular + .LV_invalid,#documento_de_facturacion_cliente_0_cli_celular + .LV_valid{
-    display: none;
-}
-#documento_de_facturacion_cliente_0_cli_correo + .LV_invalid,#documento_de_facturacion_cliente_0_cli_correo + .LV_valid{
-    display: none;
-}
-#cuerpo_factura tbody tr td input + span{
-    display: none;
 }

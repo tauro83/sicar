@@ -366,7 +366,7 @@ ul.menu li:hover > ul {
     margin-left: 6%;
     margin-right: 5%;
 }
-#proveedor_prv_ruc, #proveedor_prv_nombre, #proveedor_prv_direccion, #proveedor_prv_telefono, #proveedor_prv_correo, #proveedor_prv_fax, #proveedor_prv_responsable, #proveedor_prv_nombre_banco, #proveedor_prv_numero_cuenta {
+#proveedor_prv_nombre, #proveedor_prv_direccion, #proveedor_prv_telefono, #proveedor_prv_correo, #proveedor_prv_fax, #proveedor_prv_responsable, #proveedor_prv_nombre_banco, #proveedor_prv_numero_cuenta {
     margin-left: 20%;
     width: 200px;
 }
@@ -767,21 +767,23 @@ legend {
     margin-top: 20px;
 }
 
+.errors > .error_list{
+    list-style: none;
+    width:140px;
+    float:right;
+    margin-top:0px;
+    margin-left:300px;
+}
 
 .errors{
     width:300px;
 }
 
-#cosas2 .error_list{
+.error_list{
+    margin-top:65px;
+    margin-left: -110px;
+    list-style:none;
     position:absolute;
-    bottom:30px;
-    list-style: none;
-    margin-left: -100px;
-}
-
-.sf_admin_form_row .error_list{
-    position:absolute;
-    margin-left:350px;
 }
 
 #codigoslibres li{
@@ -805,44 +807,4 @@ legend {
 .grid-link{
     text-decoration: underline;
     color:red;
-}
-
-#imagen-permiso{
-    height:20px;
-    width:20px;
-    margin-right:4px;
-}
-
-#error-permiso{
-    margin-left:30px;
-    font-size:16px;
-    font-weight:bold;
-    text-align: center;
-}
-
-#titulo_error{
-    font-size:18px;
-    font-weight:bold;
-}
-
-.sf_admin_actions{
-    list-style: none;
-    margin-left:-40px;
-}
-
-.sf_admin_action_new{
-    font-size: 14px;
-    font-weight:bold;
-}
-
-.sf_admin_action_save_and_add{
-    display:none;
-}
-
-.sf_admin_action_list{
-    display:none;
-}
-
-.sf_admin_filter > form > table > tfoot > tr > td > a{
-    display:none;
 }

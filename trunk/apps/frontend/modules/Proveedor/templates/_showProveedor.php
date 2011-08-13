@@ -3,8 +3,6 @@
         <table >
             <tbody>
                 <tr>
-                    <td class="tabla-titulo">RUC</td>
-                    <td class="tabla-contenido"><?php echo $proveedor->getPrvRuc(); ?></td>
                     <td class="tabla-titulo">Nombre </td>
                     <td class="tabla-contenido"><?php echo $proveedor->getPrvNombre(); ?></td>
                     <td class="tabla-titulo">Direcci&oacute;n </td>
@@ -12,7 +10,7 @@
                  </tr>
                  <tr>
                     <td class="tabla-titulo">Tel&eacute;fono</td>
-                    <td class="tabla-contenido"><?php echo $proveedor->getPrvTelefono(); ?></td>
+                    <td class="tabla-contenido"><?php echo $proveedor->getPrvDireccion(); ?></td>
                     <td class="tabla-titulo">Responsable</td>
                     <td class="tabla-contenido"><?php echo $proveedor->getPrvResponsable(); ?></td>
                  </tr>

@@ -43,10 +43,7 @@ abstract class BaseClienteForm extends BaseFormDoctrine
     ));
 
     $this->validatorSchema->setPostValidator(
-      new sfValidatorAnd(array(
-        new sfValidatorDoctrineUnique(array('model' => 'Cliente', 'column' => array('cli_id'))),
-        new sfValidatorDoctrineUnique(array('model' => 'Cliente', 'column' => array('cli_identificacion'))),
-      ))
+      new sfValidatorDoctrineUnique(array('model' => 'Cliente', 'column' => array('cli_id')))
     );
 
     $this->widgetSchema->setNameFormat('cliente[%s]');

@@ -67,6 +67,7 @@ class ClienteActions extends sfActions
 
         $this->form = new ClienteForm();
 
+
         $this->processForm($request, $this->form);
 
         $this->setTemplate('new');
@@ -209,5 +210,14 @@ class ClienteActions extends sfActions
         $this->clientes=Cliente::consultarClientePorApellidos($apellido);
         $this->titulo="Clientes con apellido: ".$apellido;
     }
+
+    public function executeObtenerXMLClienteCedula(sfWebRequest $request){
+       $cedcliente=$request->getParameter('cedula_cli');
+       $this->cliente=Cliente::consultarClientePorIdentificacion($cedcliente);
+       $this->getResponse()->setContentType('text/xml');
+       $output=Cliente::xmlStringDataCliente($this->cliente);
+       echo $output;
+       return sfView::NONE;
+  }
     
 }

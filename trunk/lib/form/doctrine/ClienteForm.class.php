@@ -38,11 +38,11 @@ class ClienteForm extends BaseClienteForm
            'cli_correo' => 'Correo',
        ));
 
-      $this->validatorSchema->setPostValidator(
-      new sfValidatorAnd(array(
-              new sfValidatorDoctrineUnique(array('model' => 'Cliente', 'column' => array('cli_identificacion')),array('invalid' => 'Identificación Ingresada Anteriormente')),
-      ))
-    );
+//      $this->validatorSchema->setPostValidator(
+//      new sfValidatorAnd(array(
+//              new sfValidatorDoctrineUnique(array('model' => 'Cliente', 'column' => array('cli_identificacion')),array('invalid' => 'Identificación Ingresada Anteriormente')),
+//      ))
+//    );
 
 
     }
@@ -57,5 +57,7 @@ class ClienteForm extends BaseClienteForm
 
         return parent::doBind($values);
     }
+
+   
 }
 

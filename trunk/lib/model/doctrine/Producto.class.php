@@ -301,7 +301,6 @@ class Producto extends BaseProducto
 
         return;
     }
-    
 
     /*************************************************
     *Nombre: disminuirStock($producto)
@@ -315,14 +314,61 @@ class Producto extends BaseProducto
     public static function aumentarStockProducto($documento_de_facturacion){
         $detalles=$documento_de_facturacion->DetalleDocumento;
         foreach($detalles as $detalle):
+          //  self::actualizarPrecios($detalle);
             $stock_actual=$detalle->Producto->getProStock();
             $cantidad=$detalle->getDetCantidad();
+
+            /*CALCULO PRECIO */
+            $producto=Producto::consultarProductoPorCodigo($detalle->Producto->getProCodigo());
+            $stock_ant=$producto->getProStock();
+//            echo 'Cantidad'.$stock_ant;
+            $precio_unit_ant=$producto->getProPrecioUnitario();
+            
+            $stock_nue=$detalle->getDetCantidad();
+            $precio_unit_nue=$detalle->getDetValorUnitario();
+
+            if($precio_unit_ant==0.00){
+                $precio_cal=($stock_nue*$precio_unit_nue)/$stock_nue;
+                
+            }else{
+                $precio_cal=(($stock_nue*$precio_unit_nue)+($stock_ant*$precio_unit_ant))/($stock_ant+$stock_nue);
+
+            }
+
+           
+            $detalle->Producto->setProPrecioUnitario(round($precio_cal,2));
+            $parcial=$precio_cal*0.20;
+            $detalle->Producto->setProPrecioNotaVenta(round($precio_cal+$parcial,2));
+            $parcial2=($precio_cal+$parcial)*0.12;
+            $detalle->Producto->setProPrecioFactura(round(($precio_cal+$parcial)+$parcial2,2));
+            /******************************************************************/
             $detalle->Producto->setProStock($stock_actual + $cantidad);
             $detalle->Producto->actualizarEstado();
             $detalle->Producto->save();
         endforeach;
 
         return;
+    }
+
+    public static function actualizarPrecios($detalle){
+        $producto=Producto::consultarProductoPorCodigo($detalle->Producto->getProCodigo());
+        $stock_ant=$producto->getProStock();
+        $precio_unit_ant=$producto->getProPrecioUnitario();
+
+        $stock_nue=$detalle->getDetCantidad();
+        $precio_unit_nue=$detalle->getDetValorUnitario();
+
+        if($precio_unit_ant==0){
+            $precio_cal=($stock_ant*$precio_unit_ant)/$stock_ant;            
+        }else{
+            $precio_cal=(($stock_nue*$precio_unit_nue)+($stock_ant*$precio_unit_ant))/($stock_ant+$stock_nue);
+       }
+        $producto->setProPrecioUnitario($precio_cal);
+        $parcial=$precio_cal*0.20;
+        $producto->setProPrecioNotaVenta($precio_cal+$parcial);
+        $parcial2=($precio_cal*0.20)*0.12;
+        $producto->setProPrecioFactura($precio_cal+$parcial2);
+        $producto->save();
     }
 
      /*************************************************

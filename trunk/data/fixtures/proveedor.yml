@@ -3,7 +3,6 @@
 Proveedor:
   proveedor1:
     prv_id: 1
-    prv_ruc: '0918684234001'
     prv_nombre: 'Corpal'
     prv_direccion: 'VIA A SAMANGA BAJO KM 7 1/2'
     prv_telefono: '032855090'
@@ -16,7 +15,6 @@ Proveedor:
 
   proveedor2:
     prv_id: 2
-    prv_ruc: '0918684234002'
     prv_nombre: 'CARSHOPPING DELTAYRE S.A.'
     prv_direccion: 'COLON Y CARCHI'
     prv_telefono: '032855090'
@@ -29,7 +27,6 @@ Proveedor:
 
   proveedor3:
     prv_id: 3
-    prv_ruc: '0918684234003'
     prv_nombre: 'ElectroMotor'
     prv_direccion: 'La 23 y Cuenca'
     prv_telefono: '2456734'

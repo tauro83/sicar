@@ -10,6 +10,11 @@
 
 class Cliente extends BaseCliente
 {
+//    public function save(Doctrine_Connection $conn = null) {
+//         $ident=$this->getCliIdentificacion();
+//          echo $ident;
+//          die();
+//    }
       /*************************************************
         *Nombre: consultarClientePorIdentificacion($id_identificacion)
         *Parametros:
@@ -29,6 +34,17 @@ class Cliente extends BaseCliente
                             ->fetchOne();
         return $cliente;
     }
+
+    public static function consultarClientePorIdentificacionCol($id_identificacion){
+        $cliente=Doctrine_Core::getTable('Cliente')
+                            ->createQuery('c')
+                            ->where('c.cli_identificacion= ?',$id_identificacion)
+                           // ->andWhere('c.cli_estado = 1')
+                            ->orderBy('c.created_at ASC')
+                            ->execute();
+        return $cliente;
+    }
+
 
      public static function consultarClientePorApellidos($apellido){
         $clientes=Doctrine_Core::getTable('Cliente')
@@ -72,6 +88,51 @@ class Cliente extends BaseCliente
         $output .= "</rows>" . "\n";
         return $output;
 
+    }
+
+    public static function xmlStringDataCliente($cliente){
+         if($cliente){
+            $output = '<cliente>';
+            $output.="\n" . '<id>'.$cliente->getCliId().'</id>' . "\n";
+            $output.='<identificacion>'.$cliente->getCliNombre().'</identificacion>' . "\n";
+            $output.='<nombre>'.$cliente->getCliNombre().'</nombre>' . "\n";
+            $output.='<apellido>'.$cliente->getCliApellido().'</apellido>' . "\n";
+            $output.='<direccion>'.$cliente->getCliDireccion().'</direccion>' . "\n";
+            $output.='<telefono>'.$cliente->getCliTelefono().'</telefono>' . "\n";
+            $output.='<celular>'.$cliente->getCliCelular().'</celular>' . "\n";
+            $output.='<correo>'.$cliente->getCliCorreo().'</correo>' . "\n";
+            $output.='<mensaje>Cliente Encontrado</mensaje>' . "\n";
+            $output.='</cliente>';
+            return $output;
+        }else{
+            $output = '<cliente>';
+            $output.='<mensaje>Cliente No Encontrado</mensaje>' . "\n";
+            $output.='</cliente>';
+            return $output;
+        }
+
+    }
+
+    public static function limpiar($df){
+        $cliente=$df->Cliente;
+        $clienteDB=self::consultarClientePorIdentificacionCol($cliente->getCliIdentificacion());
+      //  echo  count($clienteDB);
+        if(count($clienteDB)>1){
+            $i=0;
+            foreach($clienteDB as $cli):
+                //echo $cli->getCliId();
+                if($i>0){
+                    $cli->delete();
+                }else{
+                   $df->setDocClienteId($cli->getCliId());
+                   $df->save();
+                }
+                $i++;
+            endforeach;
+        }else{
+
+        }
+        
     }
 
 }

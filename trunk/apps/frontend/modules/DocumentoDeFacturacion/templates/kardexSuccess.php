@@ -1,12 +1,13 @@
 
 <h1 class="titulo_principal"> <?php echo $titulo ?></h1>
+
 <?php if ($cad!=false): ?>
       <div style="margin-top:2%; width:100%;">
             <table  id="resultado_consulta_fechas"></table>
             <div id="pager"></div>
         </div>
 
- <?php//echo DocumentoDeFacturacion::xmlStringDataDocumentos($dfs) ?>
+ <?php //echo DocumentoDeFacturacion::xmlStringDataDocumentos($dfs) ?>
         <script type="text/javascript">
             /*************************************************
             *Nombre: function()

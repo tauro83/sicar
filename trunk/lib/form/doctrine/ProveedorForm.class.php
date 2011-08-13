@@ -30,7 +30,6 @@ class ProveedorForm extends BaseProveedorForm
       $this->widgetSchema['prv_estado'] = new sfWidgetFormInputHidden();
       $this->widgetSchema->setLabels(array(
             'prv_nombre'=>'Nombre',
-            'prv_ruc'=>'RUC',
             'prv_direccion' => 'Dirección',
             'prv_telefono' => 'Teléfono',
             'prv_correo' => 'Correo',

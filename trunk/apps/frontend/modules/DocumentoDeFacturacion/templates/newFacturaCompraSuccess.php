@@ -69,7 +69,7 @@
                 <td class="texto-codigo"><?php echo $form['detalle_'.$i]['det_codigo']->render(array("id"=>"det_codigo_".$i, "onblur" => "consultarDetallesProducto('$i')")) ?></td>
                 <td class="texto-cantidad"><?php echo $form['detalle_'.$i]['det_cantidad']->render(array("id"=>"det_cantidad_".$i, "onblur" => "calcularVTotal('$i')")) ?></td>
                 <td class="texto-descripcion"><?php echo $form['detalle_'.$i]['det_descripcion']->render(array("id"=>"det_descripcion_".$i)) ?></td>
-                <td class="texto-unitario"><?php echo $form['detalle_'.$i]['det_valor_unitario']->render(array("id"=>"det_val_unitario_".$i, "onblur" => "validarPrecio('$i'); ")) ?></td>
+                <td class="texto-unitario"><?php echo $form['detalle_'.$i]['det_valor_unitario']->render(array("id"=>"det_val_unitario_".$i,"onblur" => "calcularVTotal('$i')")) ?></td>
                 <td class="texto-total"><?php echo $form['detalle_'.$i]['det_valor_total']->render(array("id"=>"det_val_total_".$i)) ?></td>
                 <td><?php echo $form['detalle_'.$i]['det_producto_id']->render(array("id"=>"det_producto_id_".$i,"style"=>"display:none")) ?></td>
                 <td><?php echo $form['detalle_'.$i]['det_documento_id']->render(array("id"=>"det_documento_id_".$i,"style"=>"display:none","value"=>$form->getObject()->getDocId())) ?></td>
@@ -168,7 +168,7 @@
                      $(xml).find("producto").each(function () {
                               if($(this).find("mensaje").text() == "Producto Encontrado"){
                                 $('#det_descripcion_'+identificador).val($(this).find("nombre").text());
-                                $('#det_val_unitario_'+identificador).val($(this).find("precioUnit").text());
+                                $('#det_val_unitario_'+identificador).val("0.00");
                                 $('#det_val_nv_'+identificador).val($(this).find("precioNV").text());
                                 $('#det_producto_id_'+identificador).val($(this).find("id").text());
                                 $('#det_stock_'+identificador).val($(this).find("stock").text());

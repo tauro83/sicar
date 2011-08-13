@@ -6,8 +6,8 @@ DetalleDocumentoDeFacturacion:
     det_codigo: '100'
     det_cantidad: 5
     det_descripcion: 'SOPORTE PARRILLA 6007-3T'
-    det_valor_unitario: 0.70
-    det_valor_total: 3.50
+    det_valor_unitario: 0.57
+    det_valor_total: 1.71
     det_documento_id: 1
     det_producto_id: 1
   detalleDocumentoDeFacturacion2:
@@ -15,8 +15,8 @@ DetalleDocumentoDeFacturacion:
     det_codigo: '103'
     det_cantidad: 10
     det_descripcion: 'ABRAZADERA MANGUERA 2 PULG'
-    det_valor_unitario: 0.80
-    det_valor_total: 8.00
+    det_valor_unitario: 0,73
+    det_valor_total: 7.30
     det_documento_id: 1
     det_producto_id: 2
   detalleDocumentoDeFacturacion3:
@@ -24,7 +24,7 @@ DetalleDocumentoDeFacturacion:
     det_codigo: '106'
     det_cantidad: 10
     det_descripcion: 'ABRAZADERA MANGUERA  1/2 PULG'
-    det_valor_unitario: 0.90
-    det_valor_total: 9.00
+    det_valor_unitario: 0,73
+    det_valor_total: 7.30
     det_documento_id: 1
     det_producto_id: 3

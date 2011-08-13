@@ -14,9 +14,6 @@ newProforma:
   credentials: [[Administrador, Contador]]
   
 consultaGenerica:
-  credentials: [[Administrador, Contador, Bodeguero]]
-  
-reporteDelDia:
   credentials: [[Administrador, Contador]]
   
 ## falta agregar modificarFactura

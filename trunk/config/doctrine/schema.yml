@@ -3,7 +3,7 @@ Cliente:
     Timestampable:
   columns:
     cli_id: { type: integer(6), autoincrement: true, primary: true, notnull:  true, unique: true }
-    cli_identificacion: { type: string(13), notnull:  true, unique: true }
+    cli_identificacion: { type: string(13), notnull:  true }
     cli_nombre: { type: string(255) }
     cli_apellido: { type: string(255) }
     cli_direccion: { type: string(255) }
@@ -78,7 +78,6 @@ Proveedor:
     Timestampable:
   columns:
     prv_id: { type: integer(6), autoincrement: true, primary: true, notnull:  true, unique: true }
-    prv_ruc: { type: string(13) }
     prv_nombre: { type: string(255) }
     prv_direccion: { type: string(255) }
     prv_telefono: { type: string(11) }

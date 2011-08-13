@@ -5,7 +5,7 @@
 <?php use_javascripts_for_form($form) ?>
 
 <?php $url_accion=url_for('Cliente/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?cli_id='.$form->getObject()->getCliId() : '')) ?>
-<form action="<?php echo url_for('Cliente/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?cli_id='.$form->getObject()->getCliId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form id="form_cliente" action="<?php echo url_for('Cliente/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?cli_id='.$form->getObject()->getCliId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
@@ -22,8 +22,9 @@
                           <?php echo $form['cli_identificacion']->renderLabel(null, array('class' => 'lbl_form')); ?>
                         </td>
                         <td class="tbl_cont">
-                            <?php echo $form['cli_identificacion'] ?>
+                            <?php echo $form['cli_identificacion']->render(array("onblur" => "consultarDetallesCliente()")) ?>
                             <?php echo $form['cli_identificacion']->renderError(); ?>
+                            <label id="mensaje-error" class="hidden" style="font-family: 'Tahoma'; font-size: 11px; font-weight: bold; color:#CC0000;" >Identificaci&oacute;n Ingresada Anteriormente</label>
 
                         </td>
                     </tr>
@@ -89,7 +90,48 @@
                 </tbody>
             </table>
         </div>
+       <input id="respaldo" type="hidden" />
 
       <?php echo $form->renderHiddenFields(); // ----- MUY IMPORTANTE?>
-     <input class="btn_submit_form" id="btn_submit_prod" type="submit" value="Guardar" />
+<!--     <input class="btn_submit_form" id="btn_submit_prod" type="submit" value="Guardar" />-->
+       <input id="btn_submit_prod" type="button" onclick="submitForm()" value="Guardar" />
 </form>
+
+<script type="text/javascript" >
+
+function submitForm(){
+    var result= document.getElementById("respaldo").value;
+    var mens=document.getElementById('mensaje-error');
+   
+    if(result=="Cliente Encontrado"){
+        mens.setAttribute("class", "");
+        $('#cliente_cli_identificacion').val('');
+        
+    }else{
+        mens.setAttribute("class", "hidden");
+        var form=document.getElementById('form_cliente');
+      //  form.submit();
+      alert("se hace submit");
+        
+    }
+
+}
+function consultarDetallesCliente(){
+            var cedula_consulta= document.getElementById("cliente_cli_identificacion").value;
+            var mensaje;
+            if(cedula_consulta!=''){
+            $.ajax({
+             type: "GET",
+             url: '<?php echo url_for('Cliente/obtenerXMLClienteCedula?cedula_cli=') ?>'+cedula_consulta,
+             dataType: "xml",
+             success: function(xml){
+                     $(xml).find("cliente").each(function () {
+                             $('#respaldo').val($(this).find("mensaje").text());
+                              
+                          });                         
+                  }
+            });
+            }
+}
+
+</script>

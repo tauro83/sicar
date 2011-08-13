@@ -2,18 +2,32 @@
 <?php use_helper('jQuery')?>
 <?php if(strcasecmp($tipo_consulta,"codigo")==0):?>
 
-<h1 class="titulo_principal"> Consulta  de documento por C&oacute;digo </h1>
+
 
 <!--        <form action="<?php //echo url_for('Producto/consultaPorCodigo')?>">-->
-            <?php
-            echo jq_form_remote_tag(array(
-                'update'=>'documento_consulta',
-                'url' => 'DocumentoDeFacturacion/consultaPorCodigo',
-                'loading' => "$('#img_loader_consulta_doc').show();",
-                'complete' => "$('#img_loader_consulta_doc').hide()",
-                'failure' => "alert('Ocurrieron Errores, contacte a su administrador')"));
-            ?>
+            <?php if (strcasecmp($edit,"true")==0):?>
 
+                    <h1 class="titulo_principal"> Modificaci&oacute;n de Documento </h1>
+<!--        <form action="<?php //echo url_for('Producto/consultaPorCodigo')?>">-->
+                    <?php
+                    echo jq_form_remote_tag(array(
+                        'update'=>'documento_consulta',
+                        'url' => 'DocumentoDeFacturacion/edit',
+                        'loading' => "$('#img_loader_consulta_doc').show();",
+                        'complete' => "$('#img_loader_consulta_doc').hide()",
+                        'failure' => "alert('Ocurrieron Errores, contacte a su administrador')"));
+                    ?>
+             <?php else:?>
+                   <h1 class="titulo_principal"> Consulta  de documento por C&oacute;digo </h1>
+                    <?php
+                    echo jq_form_remote_tag(array(
+                        'update'=>'documento_consulta',
+                        'url' => 'DocumentoDeFacturacion/consultaPorCodigo',
+                        'loading' => "$('#img_loader_consulta_doc').show();",
+                        'complete' => "$('#img_loader_consulta_doc').hide()",
+                        'failure' => "alert('Ocurrieron Errores, contacte a su administrador')"));
+                    ?>
+            <?php endif; ?>
             <fieldset  class="fieldset_consulta">
             <legend>Ingrese C&oacute;digo</legend>
             <table>

@@ -16,5 +16,8 @@ newProforma:
 consultaGenerica:
   credentials: [[Administrador, Contador]]
   
+reporteDelDia:
+  credentials: [[Administrador, Contador]]
+  
 ## falta agregar modificarFactura
 ## falta codigo de barras

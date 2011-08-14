@@ -366,7 +366,7 @@ ul.menu li:hover > ul {
     margin-left: 6%;
     margin-right: 5%;
 }
-#proveedor_prv_nombre, #proveedor_prv_direccion, #proveedor_prv_telefono, #proveedor_prv_correo, #proveedor_prv_fax, #proveedor_prv_responsable, #proveedor_prv_nombre_banco, #proveedor_prv_numero_cuenta {
+#proveedor_prv_ruc, #proveedor_prv_nombre, #proveedor_prv_direccion, #proveedor_prv_telefono, #proveedor_prv_correo, #proveedor_prv_fax, #proveedor_prv_responsable, #proveedor_prv_nombre_banco, #proveedor_prv_numero_cuenta {
     margin-left: 20%;
     width: 200px;
 }

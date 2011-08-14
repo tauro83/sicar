@@ -224,5 +224,41 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
            $doc->delete();
        }
     }
+    
+        public static function obtenerReporteDelDia(){
+        $productos=Doctrine_Core::getTable('DetalleDocumentoDeFacturacion')
+                            ->createQuery('p')
+                            ->leftJoin('p.Producto pr')
+                            ->andWhere('p.det_codigo = pr.pro_codigo')
+                            ->leftJoin('p.DocumentoDeFacturacion d')
+                            ->andWhere('p.det_documento_id = d.doc_id')
+                            ->andWhere('d.doc_fecha_emision=? ', date("Y-m-d"))
+                            ->execute();
+        return $productos;
+    }
+    
+    public static function xmlReporteDelDia($lista){
+        $output = "<?xml version='1.0' encoding='utf-8'?>" . "\n";
+        $output = "<rows>";
+        $output .= "\n" . "<page>1</page>" . "\n";
+        $output .= "<total>1</total>" . "\n";
+        $output .= "<records>" . count($lista) . "</records>" . "\n";
+        foreach ($lista as $detalle) {
+            $utilidad = ($detalle->getDetValorUnitario() - $detalle->Producto->getProPrecioUnitario());
+            $output .= "<row>";
+            $output .= "<cell>" . strtoupper($detalle->Producto->getProNombre()) . "</cell>" . "\n";
+            $output .= "<cell>" . $detalle->getDetCantidad() . "</cell>" . "\n";
+            $output .= "<cell>" . $detalle->getDetValorUnitario() . "</cell>" . "\n";
+            $output .= "<cell>" . $detalle->Producto->getProPrecioUnitario() . "</cell>" . "\n";
+            $output .= "<cell>" . $utilidad . "</cell>" . "\n";
+            $output .= "<cell>" . ($utilidad * $detalle->getDetCantidad()) . "</cell>" . "\n"; 
+            $output .= "<cell>" . round(($utilidad * 100) / $detalle->Producto->getProPrecioUnitario(),2) .'%' . "</cell>" . "\n";
+            $output .= "<cell>" . $detalle->DocumentoDeFacturacion->getDocResponsable() . "</cell>" . "\n";
+            $output .= "</row>" . "\n";
+        }
+
+        $output .= "</rows>" . "\n";
+        return $output;
+    }
 
 }

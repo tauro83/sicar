@@ -250,10 +250,11 @@ class DocumentoDeFacturacionActions extends sfActions
         $codigo_producto=$request->getParameter('txt_producto_documento');
         $fecha_inicio=$request->getParameter('txt_fecha_inicio_documento');
         $fecha_fin=$request->getParameter('txt_fecha_fin_documento');
-        $dfs=DocumentoDeFacturacion::consultarDocumentoPorFechas($fecha_inicio,$fecha_fin);
+        //$dfs=DocumentoDeFacturacion::consultarDocumentoPorFechas($fecha_inicio,$fecha_fin);
+        $dfs = DocumentoDeFacturacion::consultarDetallesEntreFechasYPorProducto($fecha_inicio, $fecha_fin, $codigo_producto);
         $this->band=0;
-        $this->str_kardex=DocumentoDeFacturacion::consultarProductosKardex($dfs,$codigo_producto);
-        $this->titulo='Kárdex: Producto '.$codigo_producto.' entre'.Fechas::getFechaPersonalizada($fecha_inicio).' y '.Fechas::getFechaPersonalizada($fecha_fin);
+        $this->str_kardex=DocumentoDeFacturacion::consultarProductosKardex2($dfs);
+        $this->titulo='Kárdex entre:'.Fechas::getFechaPersonalizada($fecha_inicio).' y '.Fechas::getFechaPersonalizada($fecha_fin);
         $this->cad=strstr($this->str_kardex,'<cell>');
         //echo $this->cad;
        // die();

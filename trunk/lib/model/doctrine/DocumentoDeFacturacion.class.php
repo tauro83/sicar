@@ -70,6 +70,45 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
                             ->execute();
         return $dfs;
     }
+    
+        public static function consultarDetallesEntreFechasYPorProducto($fecha_inicio,$fecha_fin,$producto){
+        $detalles = Doctrine_Core::getTable('DetalleDocumentoDeFacturacion')
+                            ->createQuery('p')
+                            ->leftJoin('p.Producto pr')
+                            ->andWhere('p.det_codigo = pr.pro_codigo')
+                            ->leftJoin('p.DocumentoDeFacturacion d')
+                            ->andWhere('p.det_documento_id = d.doc_id')
+                            ->andWhere('d.doc_fecha_emision>= ?',$fecha_inicio)
+                            ->andWhere('d.doc_fecha_emision<= ?',$fecha_fin)
+                            ->andWhere('p.det_codigo = ?', $producto) 
+                            ->andWhere('d.doc_tipo <> 3')
+                            ->execute();
+        return $detalles;
+    }
+    
+    public static function consultarProductosKardex2($dfs){
+      $output = "<?xml version='1.0' encoding='utf-8'?>" . "\n";
+       $output = "<rows>";
+       $output .= "\n" . "<page>1</page>" . "\n";
+       $output .= "<total>1</total>" . "\n";
+       $output .= "<records>" . count($dfs) . "</records>" . "\n";
+        foreach($dfs as $df):
+                     if($df->DocumentoDeFacturacion->getDocTipo()==1||$df->DocumentoDeFacturacion->getDocTipo()==2):
+                        $trans="Venta";
+                     else:
+                        $trans="Compra";
+                     endif;
+                    $output .= "<row id='" . $df->getDetId() . "'>" . "\n";
+                    $output .= "<cell>" . Fechas::getFechaPersonalizada($df->DocumentoDeFacturacion->getDocFechaEmision())."</cell>" . "\n";
+                    $output .= "<cell>" .$trans."</cell>" . "\n";
+                    $output .= "<cell>" .$df->getDetCantidad()."</cell>" . "\n";
+                    $output .= "<cell>" .$df->getDetValorTotal()."</cell>" . "\n";
+                    $output .= "<cell>" .$df->DocumentoDeFacturacion->getDocCodigo()."</cell>" . "\n";
+                    $output .= "</row>" . "\n";
+          endforeach;
+       $output .= "</rows>" . "\n";
+       return $output;
+    }
 
     public static function consultarProductosKardex($dfs,$codigo_producto){
        $output = "<?xml version='1.0' encoding='utf-8'?>" . "\n";

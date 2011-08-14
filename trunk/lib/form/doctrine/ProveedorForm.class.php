@@ -37,6 +37,7 @@ class ProveedorForm extends BaseProveedorForm
             'prv_responsable' => 'Responsable',
             'prv_nombre_banco' => 'Nombre Banco',
             'prv_numero_cuenta' => 'Número de Cuenta',
+            'prv_ruc' => 'RUC',
         ));
 
      }

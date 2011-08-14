@@ -31,6 +31,14 @@
                     </tr>
                     <tr>
                         <td class="tbl_header">
+                          <?php echo $form['prv_ruc']->renderLabel(null, array('class' => 'lbl_form')); ?>
+                        </td>
+                        <td class="tbl_cont">
+                            <?php echo $form['prv_ruc'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_header">
                           <?php echo $form['prv_direccion']->renderLabel(null, array('class' => 'lbl_form')); ?>
                         </td>
                         <td class="tbl_cont">

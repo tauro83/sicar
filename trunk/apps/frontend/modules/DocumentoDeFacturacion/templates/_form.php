@@ -155,7 +155,9 @@
                 <th>V. Total</th>
             <thead>
             <tbody>
-            <?php for($i=1;$i<=count($df->DetalleDocumento);$i++) { ?>
+            <!--<?php //for($i=1;$i<=count($df->DetalleDocumento);$i++) { ?> -->
+<!--            agregado para los detalles-->
+            <?php for($i=1;$i<=10;$i++) { ?>
              <tr>
                 <td><img src="/images/loader2.gif" alt="add_producto" id="<?php echo "loader_".$i ?>" class="hidden" /></td>
                 <td class="texto-codigo"><?php echo $form['detalle_'.$i]['det_codigo']->render(array("id"=>"det_codigo_".$i, "onblur" => "consultarDetallesProducto('$i')")) ?></td>
@@ -222,7 +224,7 @@
 <!--    <input class="btn_submit_form" id="btn_submit_factura" type="submit" value="Guardar" />-->
 
 </form>
-     <input type="button" class="btn_submit_form" id="btn_submit_factura" onclick="enviarFormularioDoc2();" value="Guardar" />
+     <input type="button" class="btn_submit_form" id="btn_submit_factura" onclick="enviarFormularioDoc();" value="Guardar" />
 
 <script type="text/javascript">
      $(document).ready(function () {
@@ -323,7 +325,7 @@
                         if(cantidad && precio){
                               $('#det_val_total_'+identificador).val((cantidad*precio).toFixed(2));
                         }
-                //        }
+                        //}
 
                     calcularSubTotal();
                     <?php if($df->getDocTipo()==1): ?>
@@ -343,6 +345,7 @@
                 }
             }
    }
+
 
 
    function validarPrecio (identificador){
@@ -526,16 +529,23 @@ function validarFacturaLlena(){
 
 function enviarFormularioDoc(){
     var formulario = document.getElementById("new_doc_facturacion");
-    var existe_item= validarExistenciaItem();    
-    if(existe_item==true){
-        var bandera= validarItemsCompletosFactura();
-        if(bandera==true)
-            formulario.submit();
-        else
-            alert("Datos no llenados correctamente. Favor verificar detalle del Documento");
-    }else
-         alert("No se puede crear Documento Vacío");
-            
+    var existe_item= validarExistenciaItem();
+    var validacionCorrecta = validarTodosLosCamposFactura();
+    if(validacionCorrecta){
+        var fecha = validarExistenciaCampo("documento_de_facturacion_doc_fecha_emision");
+        if(fecha){
+            if(existe_item==true){
+                var bandera= validarItemsCompletosFactura();
+                if(bandera==true)
+                    formulario.submit();
+                else
+                    alert("Datos no llenados correctamente. Favor verificar detalle del Documento");
+            }else
+                 alert("No se puede crear Documento Vacío");
+        }else
+             alert("Ingrese fecha de emisión");
+    }
+ 
 }
 
 /*************************************************

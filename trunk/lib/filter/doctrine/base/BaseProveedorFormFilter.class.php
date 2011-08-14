@@ -13,6 +13,7 @@ abstract class BaseProveedorFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
+      'prv_ruc'           => new sfWidgetFormFilterInput(),
       'prv_nombre'        => new sfWidgetFormFilterInput(),
       'prv_direccion'     => new sfWidgetFormFilterInput(),
       'prv_telefono'      => new sfWidgetFormFilterInput(),
@@ -28,6 +29,7 @@ abstract class BaseProveedorFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
+      'prv_ruc'           => new sfValidatorPass(array('required' => false)),
       'prv_nombre'        => new sfValidatorPass(array('required' => false)),
       'prv_direccion'     => new sfValidatorPass(array('required' => false)),
       'prv_telefono'      => new sfValidatorPass(array('required' => false)),
@@ -60,6 +62,7 @@ abstract class BaseProveedorFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'prv_id'            => 'Number',
+      'prv_ruc'           => 'Text',
       'prv_nombre'        => 'Text',
       'prv_direccion'     => 'Text',
       'prv_telefono'      => 'Text',

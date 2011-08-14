@@ -87,7 +87,7 @@
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/newProforma") ?>'>Ingreso Proforma</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=codigo&edit=true") ?>'>Modificaci&oacute;n de Documento</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=codigo&edit=false") ?>'>Reporte por C&oacute;digo</a></li>
-                                <li>Reporte del D&iacute;a</li>
+                                <li><a href='<?php echo url_for("DocumentoDeFacturacion/reporteDelDia") ?>'>Reporte del D&iacute;a</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=fecha&edit=false") ?>'>Reporte por Fecha</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/consultaGenerica?tipo_consulta=kardex&edit=false") ?>'>K&aacute;rdex</a></li>
                             </ul>

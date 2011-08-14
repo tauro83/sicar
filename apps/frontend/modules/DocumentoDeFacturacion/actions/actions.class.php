@@ -338,6 +338,9 @@ class DocumentoDeFacturacionActions extends sfActions
     throw new sfStopException();
   }
   
+    public function executeReporteDelDia(sfWebRequest $request){
+      $this->lista = DocumentoDeFacturacion::obtenerReporteDelDia();
+  }
    
 }
 

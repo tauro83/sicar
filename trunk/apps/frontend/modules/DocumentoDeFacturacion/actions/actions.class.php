@@ -338,6 +338,16 @@ class DocumentoDeFacturacionActions extends sfActions
     throw new sfStopException();
   }
   
+    /*****************************************************************************
+    *Nombre: executeReporteDelDia(sfWebRequest $request, sfForm $form)
+    *Parametros:
+            - $request : Objeto de tipo sfWebRequest.
+    *Descripción: Accede a la página para mostrar el reporte del día, mientras
+   * busca en la base de datos todos los productos vendidos hoy.
+    *Autor: Jaime Castells
+    ******************************************************************************/
+  
+  
     public function executeReporteDelDia(sfWebRequest $request){
       $this->lista = DocumentoDeFacturacion::obtenerReporteDelDia();
   }

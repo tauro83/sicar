@@ -71,6 +71,20 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
         return $dfs;
     }
     
+         /*************************************************
+    *Nombre: consultarDetallesEntreFechasYPorProducto($fecha_inicio,$fecha_fin,$producto)
+    *Parametros:
+	      - $fecha_inicio : Fecha inicio de la búsqueda.
+              - $fecha_fin: Fecha fin de la búsqueda.
+              - $producto: codigo del producto
+
+    *Descripción: Esta función realiza una búsqueda en la base de datos de todos los 
+      * detalles, que contengan al producto pasado y que estén entre las dos fechas
+      * mandadas.
+
+    * Autor: Jaime Castells
+ **************************************************/
+    
         public static function consultarDetallesEntreFechasYPorProducto($fecha_inicio,$fecha_fin,$producto){
         $detalles = Doctrine_Core::getTable('DetalleDocumentoDeFacturacion')
                             ->createQuery('p')
@@ -85,6 +99,16 @@ class DocumentoDeFacturacion extends BaseDocumentoDeFacturacion
                             ->execute();
         return $detalles;
     }
+    
+          /*************************************************
+    *Nombre: consultarProductosKardex2($dfs)
+    *Parametros:
+	      - $dfs : Listado de detalles que contienen el producto especificado.
+
+    *Descripción: Esta función genera un XML para mostrar todos los detalles en una tabla grid.
+
+    * Autor: Jaime Castells
+ **************************************************/
     
     public static function consultarProductosKardex2($dfs){
       $output = "<?xml version='1.0' encoding='utf-8'?>" . "\n";

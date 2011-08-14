@@ -78,6 +78,7 @@ Proveedor:
     Timestampable:
   columns:
     prv_id: { type: integer(6), autoincrement: true, primary: true, notnull:  true, unique: true }
+    prv_ruc: { type: string(20) }
     prv_nombre: { type: string(255) }
     prv_direccion: { type: string(255) }
     prv_telefono: { type: string(11) }

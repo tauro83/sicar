@@ -16,6 +16,7 @@ abstract class BaseProveedorForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'prv_id'            => new sfWidgetFormInputHidden(),
+      'prv_ruc'           => new sfWidgetFormInputText(),
       'prv_nombre'        => new sfWidgetFormInputText(),
       'prv_direccion'     => new sfWidgetFormInputText(),
       'prv_telefono'      => new sfWidgetFormInputText(),
@@ -32,6 +33,7 @@ abstract class BaseProveedorForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'prv_id'            => new sfValidatorChoice(array('choices' => array($this->getObject()->get('prv_id')), 'empty_value' => $this->getObject()->get('prv_id'), 'required' => false)),
+      'prv_ruc'           => new sfValidatorString(array('max_length' => 20, 'required' => false)),
       'prv_nombre'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'prv_direccion'     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'prv_telefono'      => new sfValidatorString(array('max_length' => 11, 'required' => false)),

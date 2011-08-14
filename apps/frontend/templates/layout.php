@@ -79,6 +79,7 @@
                         </li>
                         <li><a href="#" >Facturación</a>
                             <ul>
+							
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/newFacturaCompra") ?>'>Ingreso Factura de Compra</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/newFacturaCompra") ?>'>Modificacion Factura de Compra</a></li>
                                 <li><a href='<?php echo url_for("DocumentoDeFacturacion/new") ?>'>Ingreso Factura</a></li>
